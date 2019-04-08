@@ -20,6 +20,7 @@ using PX.Objects.CT;
 
 namespace WorkgroupRestrictions
 {
+	[EntityRestrictionPrimaryGraphAttribute(typeof(SOOrderEntry), typeof(SOOrder.orderNbr))]
 	public sealed class SOOrderExt : PXCacheExtension<SOOrder>
 	{
 		#region OrderNbr

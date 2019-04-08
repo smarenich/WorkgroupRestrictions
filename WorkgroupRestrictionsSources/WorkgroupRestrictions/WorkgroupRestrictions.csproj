@@ -67,6 +67,7 @@
     <Compile Include="Extensions\CROpportunityExtension.cs" />
     <Compile Include="Extensions\OpportunityMaintExtension.cs" />
     <Compile Include="Extensions\PreferencesSecurityExtensions.cs" />
+    <Compile Include="Extensions\BAccountExtension.cs" />
     <Compile Include="Extensions\SOOrderExtension.cs" />
     <Compile Include="Restrictions\EntityRestrictions.cs" />
     <Compile Include="Restrictions\EntityRestrictionAutomation.cs" />

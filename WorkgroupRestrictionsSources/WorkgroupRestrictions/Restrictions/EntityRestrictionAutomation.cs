@@ -191,4 +191,55 @@ namespace WorkgroupRestrictions
 			}
 		}
 	}
+
+	public class EntityRestrictionPrimaryGraphAttribute : PXPrimaryGraphAttribute
+	{
+		protected Type PrimarySelector = null;
+
+		public EntityRestrictionPrimaryGraphAttribute(Type type, Type primarySelector)
+			: base(type)
+		{
+			PrimarySelector = primarySelector;
+		}
+
+		public override Type GetGraphType(PXCache cache, ref object row, bool checkRights, Type preferedType)
+		{
+			Type ret = base.GetGraphType(cache, ref row, checkRights, preferedType);
+
+			CheckAccess(row, ret, PrimarySelector);
+
+			return ret;
+		}
+
+		public static void CheckAccess(object row, Type ret, Type primaryselector)
+		{
+			if (ret != null && row != null && BqlCommand.GetItemType(primaryselector).IsAssignableFrom(row.GetType()))
+			{
+				//TOCHECK Possible Perfornance Issue - this will select record for each search result.
+				PXGraph graph = PXGraph.CreateInstance(ret);
+				Object validation = PXSelectorAttribute.Select(graph.GetPrimaryCache(), row, primaryselector.Name);
+				if (validation == null)
+					throw new PXNotEnoughRightsException(PXCacheRights.Select);
+			}
+		}
+	}
+	public class EntityRestrictionCRCacheIndependentPrimaryGraphAttribute : CRCacheIndependentPrimaryGraphListAttribute
+	{
+		protected Type PrimarySelector = null;
+
+		public EntityRestrictionCRCacheIndependentPrimaryGraphAttribute(Type[] graphTypes, Type[] condition, Type primarySelector)
+			: base(graphTypes, condition)
+		{
+			PrimarySelector = primarySelector;
+		}
+
+		public override Type GetGraphType(PXCache cache, ref object row, bool checkRights, Type preferedType)
+		{
+			Type ret = base.GetGraphType(cache, ref row, checkRights, preferedType);
+
+			EntityRestrictionPrimaryGraphAttribute.CheckAccess(row, ret, PrimarySelector);
+
+			return ret;
+		}
+	}
 }

@@ -11,6 +11,7 @@ using PX.TM;
 
 namespace WorkgroupRestrictions
 {
+	[EntityRestrictionPrimaryGraphAttribute(typeof(OpportunityMaint), typeof(CROpportunity.opportunityID))]
 	public sealed class CROpportunityExtension : PXCacheExtension<CROpportunity>
 	{
 		#region OpportunityID
@@ -43,7 +44,6 @@ namespace WorkgroupRestrictions
 				typeof(Contact.displayName)
 			},
 			Filterable = true)]
-		//[NORDE.OpportunityMaintExtension.PXCustomSelectorOpportunity]
 		public String OpportunityID { get; set; }
 		#endregion
 	}
