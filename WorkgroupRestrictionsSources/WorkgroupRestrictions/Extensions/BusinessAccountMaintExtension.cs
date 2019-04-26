@@ -26,7 +26,7 @@ namespace WorkgroupRestrictions
 						Or<BAccount.createdByID, Equal<Current<AccessInfo.userID>>,
 						Or<BAccount.ownerID, Equal<Current<AccessInfo.userID>>,
 						Or<BAccount.ownerID, OwnedUser<Current<AccessInfo.userID>>,
-						Or<BAccount.noteID, OwnedGroup<CROpportunity.noteID, Current<AccessInfo.userID>>>>>>>>
+						Or<BAccount.noteID, OwnedGroup<BAccount.noteID, Current<AccessInfo.userID>>>>>>>>
 				>>>
 			BAccount;
 
