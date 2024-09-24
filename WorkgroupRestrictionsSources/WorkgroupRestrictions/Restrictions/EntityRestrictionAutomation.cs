@@ -206,7 +206,8 @@ namespace WorkgroupRestrictions
 		{
 			Type ret = base.GetGraphType(cache, ref row, checkRights, preferedType);
 
-			CheckAccess(row, ret, PrimarySelector);
+			if(cache.GetStatus(row) != PXEntryStatus.Inserted)
+				CheckAccess(row, ret, PrimarySelector);
 
 			return ret;
 		}
@@ -237,7 +238,8 @@ namespace WorkgroupRestrictions
 		{
 			Type ret = base.GetGraphType(cache, ref row, checkRights, preferedType);
 
-			EntityRestrictionPrimaryGraphAttribute.CheckAccess(row, ret, PrimarySelector);
+      			if(cache.GetStatus(row) != PXEntryStatus.Inserted)
+				EntityRestrictionPrimaryGraphAttribute.CheckAccess(row, ret, PrimarySelector);
 
 			return ret;
 		}
